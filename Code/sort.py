@@ -163,11 +163,23 @@ def bucket_sort(li,n=100,max_num=1000000):    #一百个桶，最大数10000
         new_li.extend(buc)
     return new_li
 
+def radix_sort(li):
+    max_num = max(li)   #最大值 99 -> 做2次   888 -> 做3次
+    it = 0
+    while 10 ** it <= max_num:
+        buckets = [[] for _ in range(10)]
+        for var in li:
+            # 987 it=1 取7
+            dig = (var // 10 ** it) % 10
+            buckets[dig].append(var)
+        li.clear()
+        for buc in buckets:
+            li.extend(buc)
+        it += 1
 
 
 
-
-li = [random.randint(0,1000000) for _ in range(1000)]
-
-print(bucket_sort(li))
+li = [random.randint(0,1000) for _ in range(100)]
+radix_sort(li)
+print(li)
 

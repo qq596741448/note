@@ -67,6 +67,71 @@ class Solution(object):
         return dict1 == dict2     
 ```
 
+
+
+### [74. 搜索二维矩阵](https://leetcode-cn.com/problems/search-a-2d-matrix/)
+
+编写一个高效的算法来判断 m x n 矩阵中，是否存在一个目标值。该矩阵具有如下特性：
+
+每行中的整数从左到右按升序排列。
+每行的第一个整数大于前一行的最后一个整数。
+
+```
+输入：matrix = [
+[1,3,5,7],
+[10,11,16,20],
+[23,30,34,60]], target = 3
+输出：true
+```
+
+```
+输入：matrix = [
+[1,3,5,7],
+[10,11,16,20],
+[23,30,34,60]], target = 13
+输出：false
+```
+
+**思路：**使用二分查找
+
+**难点：**
+
+1、怎么把mid变成二维
+
+2、二分查找的代码如何实现
+
+```python
+class Solution(object):
+    def searchMatrix(self, matrix, target):
+        """
+        :type matrix: List[List[int]]
+        :type target: int
+        :rtype: bool
+        """
+        h = len(matrix)  # 行数   3
+        if h ==0:
+            return False
+        w = len(matrix[0])  # 列数   4
+        if w == 0:
+            return False
+        left = 0
+        right = w * h - 1  # 最后一位11
+        while left <= right:
+            mid = (left + right) // 2  # mid=5
+            i = mid // w  # 确认mid行数
+            j = mid % w
+            if target == matrix[i][j]:
+                return True
+            elif target < matrix[i][j]:
+                right = mid -1
+            else:
+                left = mid +1
+        else:
+            return False
+```
+
+
+
 ## 二、其他问题
 
 ### 1.汉诺塔问题
